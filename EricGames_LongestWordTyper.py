@@ -1,6 +1,6 @@
 # Print begginin' and press enter to play print readyy set type
 import random
-print("If you get BOB 8.2% chance, email me.")
+print("If you get the word BOB which has a 0.5% chance of happening, comment it.")
 def clear():
 	print("\033[2J\033[1;1H", end="")
 import time
