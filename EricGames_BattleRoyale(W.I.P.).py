@@ -1,10 +1,12 @@
 #working on it
 # 5 kinds of units(Soldiers)
+import random
 units=[]
 AIunits=[]
 board=[]
 rows=23
 columns=57
+#The board
 for i in range(rows):
   row=[]
   for i in range(columns):
@@ -22,6 +24,7 @@ print("\033c")
 #Starting income
 income=500
 AIincome=500
+#the units
 giant="|--O--|"
 wizard="o-|"
 archer="|-o"
@@ -42,6 +45,7 @@ AIunits.append(AIwizard)
 AIunits.append(AIarcher)
 AIunits.append(AIknight)
 AIunits.append(AIswordsmen)
+#The projectiles
 laser="-!-"
 arrow="|"
 #Making towers
@@ -86,6 +90,7 @@ for i in range(len(towerMmid)):
   board[rows-2][columns-len(towerRmid)+i-1]=towerRmid[i]
 for i in range(len(towerMbottom)):
   board[rows-1][columns-len(towerRbottom)+i-1]=towerRbottom[i]
+#Printing the board for the game  
 printboard()
 AItowerRtop= "______________"
 AItowerRmid="|_    - _   - |"
@@ -97,6 +102,7 @@ AItowerLtop= "______________"
 AItowerLmid="|_    - _   - |"
 AItowerLbottom="______________"
 print("\033c")
+#Making towers
 for i in range(len(AItowerLtop)):
   board[0][i]=AItowerLtop[i]
 for i in range(len(AItowerLmid)):
@@ -124,8 +130,7 @@ for unit in units:
   if unit."attackWithWeapon":
     Ahealth-=15
 '''
-#2 Bridge across river to enemy side.oo
-#Press buttons to send units.        ||
+#Costs
 giantcost=70
 wizardcost=45
 archercost=40
@@ -146,9 +151,13 @@ def move_characters():
       row=coordinate[0]
       column=coordinate[1]
       newrow=row-2
-      newcolumn=column
+      newcolumn=column+random.randint(-1,1 )
       print(str(row))
       print(str(column))
+      if newrow > rows-5:
+# stop before the castlemobobber
+#        wizard."attack"
+        pass
       for i in range(len(wizard)):
         board[newrow][newcolumn+i]=wizard[i]
         board[row][column+i]="~"
@@ -156,10 +165,11 @@ def move_characters():
       coordinate_index+=1
   print(str(playerunits))
 while True:
-  
+  #This print statement clears everything
   print("\033c")
   printboard()
   wizardspawn="w"
+  # This is how to spawn a wizard.
   spawn=input("To spawn a wizard, press w.Cost: $45 ")
   if spawn==wizardspawn:
     for i in range(len(wizard)):
