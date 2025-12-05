@@ -1,0 +1,10 @@
+[
+  { "name": "Swordsman", "cost": 2, "glyph": "S", "hp": 80, "dmg": 20, "speed_ticks": 1, "attack_cooldown_ticks": 2, "range": 1, "type": "melee" },
+  { "name": "Knight", "cost": 4, "glyph": "K", "hp": 180, "dmg": 40, "speed_ticks": 2, "attack_cooldown_ticks": 2, "range": 1, "type": "melee" },
+  { "name": "Archer", "cost": 3, "glyph": "R", "hp": 70, "dmg": 18, "speed_ticks": 1, "attack_cooldown_ticks": 3, "range": 5, "type": "ranged" },
+  { "name": "Wizard", "cost": 4, "glyph": "W", "hp": 60, "dmg": 25, "speed_ticks": 1, "attack_cooldown_ticks": 4, "range": 4, "type": "ranged_aoe", "aoe_radius": 1, "aoe_pct": 0.6 },
+  { "name": "Giant", "cost": 6, "glyph": "G", "hp": 400, "dmg": 50, "speed_ticks": 3, "attack_cooldown_ticks": 2, "range": 1, "type": "tank" },
+  { "name": "Spear Goblin", "cost": 1, "glyph": "g", "hp": 40, "dmg": 12, "speed_ticks": 1, "attack_cooldown_ticks": 2, "range": 3, "type": "ranged" },
+  { "name": "Mini P.E.K.K.A", "cost": 3, "glyph": "P", "hp": 160, "dmg": 70, "speed_ticks": 2, "attack_cooldown_ticks": 3, "range": 1, "type": "melee" },
+  { "name": "Skeleton", "cost": 1, "glyph": "s", "hp": 20, "dmg": 10, "speed_ticks": 1, "attack_cooldown_ticks": 2, "range": 1, "type": "melee" }
+]

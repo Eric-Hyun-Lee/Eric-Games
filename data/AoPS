@@ -1,0 +1,196 @@
+print("Hello, world!")
+print("Welcome to AoPS data repository.")   
+# This is a sample Python file in the AoPS data repository. It can be used
+# to demonstrate code completion features.
+#Examples:
+def add(a, b):
+    return a + b
+def multiply(a, b):
+    return a * b
+result_add = add(5, 3)
+result_multiply = multiply(5, 3)
+print("Addition Result:", result_add)
+print("Multiplication Result:", result_multiply)
+# Feel free to modify and expand this code as needed.
+# For example, you can add more functions or classes to perform different tasks.
+
+#Lesson 1. Basics of Computer Science
+# In this lesson, we will cover the basics of computer science including variables, data types, and simple operations.
+# Variables and Data Types
+x = 10          # Integer
+y = 3.14        # Float
+name = "Alice"  # String
+is_student = True  # Boolean
+# Simple Operations
+sum_xy = x + y
+product_xy = x * y
+greeting = "Hello, " + name
+print(greeting)
+# Output the results
+print("Sum:", sum_xy)
+print("Product:", product_xy)
+# Output: Hello, Alice
+#         Sum: 13.14
+#         Product: 31.400000000000002
+#Lesson 2. Control Structures
+# In this lesson, we will cover control structures including if statements and loops.
+# If Statements
+age = 20
+if age < 18:
+    print("You are a minor.")
+else:
+    print("You are an adult.")
+# Loops
+# For Loop
+for i in range(5):
+    print("Iteration:", i)
+# While Loop
+count = 0
+while count < 5:
+    print("Count:", count)
+    count += 1
+# Output: You are an adult.
+#         Iteration: 0
+#         Iteration: 1
+#         Iteration: 2
+#         Iteration: 3
+#         Iteration: 4
+#         Count: 0
+#         Count: 1
+#         Count: 2
+#         Count: 3
+#         Count: 4
+#Lesson 3. Functions
+# In this lesson, we will cover functions including defining and calling functions.
+# Defining a Function
+def greet(name):
+    return "Hello, " + name + "!"
+# Calling a Function
+message = greet("Bob")
+print(message)
+# Output: Hello, Bob!
+#Lesson 4. Data Structures
+# In this lesson, we will cover data structures including lists and dictionaries.
+# Lists
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print("Fruit:", fruit)
+# Dictionaries
+person = {"name": "Charlie", "age": 25}
+print("Name:", person["name"])
+print("Age:", person["age"])
+# Output: Fruit: apple
+#         Fruit: banana
+#         Fruit: cherry
+#         Name: Charlie
+#         Age: 25
+
+#The lessons will continue to cover more advanced topics in computer science.
+#But right now, let's end the lessons here for brevity.
+
+
+#What is an algorithm?
+#An algorithm is a step-by-step procedure or set of rules for solving a specific problem or performing a task. It is a well-defined sequence of instructions that takes an input, processes it, and produces an output. Algorithms can be expressed in various forms, such as natural language, pseudocode, or programming languages.
+#Algorithms are used in computer science and programming to automate tasks, perform calculations, and solve complex problems. They can range from simple operations, like sorting a list of numbers, to more complex processes, like searching for information in a database or analyzing data.
+#Key characteristics of algorithms include:
+#1. Finiteness: An algorithm must have a finite number of steps and terminate after a certain point.
+#2. Definiteness: Each step of the algorithm must be clearly defined and unambiguous.
+#3. Input: An algorithm may take zero or more inputs to work with.
+#4. Output: An algorithm must produce at least one output as a result of its execution.
+#5. Effectiveness: Each step of the algorithm must be feasible and executable within a reasonable amount of time.
+#Overall, algorithms are fundamental to computer science and play a crucial role in the development of software and technology.
+
+#Lesson 5. Basic Algorithm Example - Sorting
+# In this lesson, we will cover a basic algorithm example: sorting a list of numbers using the Bubble Sort algorithm.
+# Bubble Sort Algorithm
+def bubble_sort(arr):
+    n = len(arr)
+    # Traverse through all array elements
+    for i in range(n):
+        # Last i elements are already sorted
+        for j in range(0, n-i-1):
+            # Swap if the element found is greater than the next element
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+#____________________________________________
+# Lets turn an algorithm into code.
+#Consider the following algorithm:
+
+#Step 1: Input a positive integer $N.$
+N = 6
+#Step 2: Begin with $sum$ equal to 0 and $n$ equal to 1.
+sum = 0
+n = 1
+#Step 3: Find the $n$th odd number, which is $2n-1,$ and increase $sum$ by this odd number.
+#This seems complicated, but its not.
+while n <= N:
+    odd_number = 2 * n - 1
+    sum += odd_number
+#Step 4: Increase $n$ by 1.
+    n+=1 #This is the same as n = n + 1
+#Step 5: If $n > N,$ then stop and output $sum.$ Otherwise, go back to step 3.
+    if n>N:
+        print(str(sum))
+    else:
+        continue
+#What number does this algorithm output if we input $N = 6?$
+#Full code:
+N = 6
+sum = 0
+n = 1
+while n <= N:
+    odd_number = 2 * n - 1
+    sum += odd_number
+    n+=1
+    if n > N:
+        print(str(sum))
+    else:
+        continue
+    #Output: 36
+#Below is the proposed algorithm, but the values of X and Y are missing:
+
+#Step 1: Divide the input by X. Call the quotient $\mathtt{myQuotient}$ and ignore the remainder.
+
+#Step 2: Now divide $\mathtt{myQuotient}$ by Y. Ignore the quotient and call the remainder $\mathtt{myRemainder}.$
+
+#Step 3: Return $\mathtt{myRemainder}.$
+
+#What X, Y will allow this algorithm to correctly find the hundreds digit of the input? Put X in the first blank and Y in the second blank.
+
+#Note: We would say that $7 \div 3$ has a quotient of 2 and a remainder of 1.
+#you solve it this time
+#X = 100
+#Y = 10
+
+
+#costFruit = pounds * 0.32             #1
+#else:                                 #2
+#if pounds <= 100 :                    #3
+#pounds = int(input("Enter pounds: ")) #4
+#print(totalCost)                      #5
+#    shipping = 6.00                   #6
+#    shipping = 7.50                   #7
+#totalCost = costFruit + shipping      #8
+#Fix the lines above by putting them in the correct order.
+pounds = int(input("Enter pounds: ")) #4
+if pounds <= 100 :                    #3
+    costFruit = pounds * 0.32             #1
+    shipping = 6.00                   #6
+else:                                 #2
+    costFruit = pounds * 0.25
+    shipping = 7.50                   #7
+totalCost = costFruit + shipping      #8
+print(totalCost)                      #5
+
+#Good job!
+#____________________________________________
+#The code below is from:
+#EricGames_Trivia.py
+#It will use functions, dictionaries, loops, and conditionals. 
+
+#The code below is from:
+#EricGames_BlackJack.py
+#It will use functions, lists, loops, and conditionals.
+#____________________________________________

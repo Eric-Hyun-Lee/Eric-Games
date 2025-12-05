@@ -1,0 +1,14 @@
+{
+  "tick_rate": 0.16666666666666666,
+  "elixir": {
+    "max": 10,
+    "regen_per_sec": 0.6666667
+  },
+  "arena": {
+    "rows": 23,
+    "cols": 57,
+    "player_spawn_row": 19,
+    "ai_spawn_row": 3
+  },
+  "match_length_seconds": 180
+}
