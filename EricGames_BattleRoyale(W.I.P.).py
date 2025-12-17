@@ -1,9 +1,11 @@
 #working on it
 # 5 kinds of units(Soldiers)
 import random
-
+import time
+import asyncio
+unitconverger = {}
 AIunits = {}
-
+maxunits = 15
 board=[]
 rows=23
 columns=57
@@ -40,6 +42,11 @@ AIarcher="|-A"
 AIknight="|-A-|"
 AIswordsmen="-A-|"
 MaxUnitLength = len(giant)
+unitconverger["giant"] = giant
+unitconverger["wizard"] = wizard
+unitconverger["archer"] = archer
+unitconverger["knight"] = knight
+unitconverger["swordsmen"] = swordsmen
 AIunitconverger["AIgiant"] = AIgiant
 AIunitconverger["AIwizard"] = AIwizard
 AIunitconverger["AIarcher"] = AIarcher
@@ -153,9 +160,18 @@ AIunits["AIgiant"] = []
 AIunits["AIarcher"] = []
 AIunits["AIknight"] = []
 AIunits["AIswordsmen"] = []
+def countUnits():
+  numPlayerUnits=0
+  numAIUnits = 0
+  for unit in playerunits:
+    numPlayerUnits += len(playerunits[unit])
+  for unit in AIunits:
+    numAIUnits += len(AIunits[unit])
+  return numPlayerUnits, numAIUnits
 def move_characters(mode):
   global playerunits, AIunits
   units = playerunits
+  
   if mode == "player":
     units = playerunits
   if mode == "AI":
@@ -167,16 +183,16 @@ def move_characters(mode):
       column=coordinate[1]
       if mode == "player":
         newrow=row-2
-        newcolumn=column+random.randint(-10,10 )
+        newcolumn=column+random.randint(-3,3 )
       elif mode == "AI":
         newrow = row+2
-        newcolumn = column+random.randint(-10, 10)
+        newcolumn = column+random.randint(-3, 3)
       if newcolumn <= MaxUnitLength:
         newcolumn = MaxUnitLength
       if newcolumn >= columns-MaxUnitLength:
         newcolumn = columns-MaxUnitLength
-      print(str(newrow))
-      print(str(newcolumn))
+    #  print(str(newrow))
+   #   print(str(newcolumn))
       if mode == "player":
         if newrow < 3:
 # stop before the castlemobobber
@@ -184,13 +200,15 @@ def move_characters(mode):
 #  and attacking the player's castle instead of the AI's castle, where they stop and spawn
 #        wizard."attack"
         
-          print("True")
+          pass
         else:
+          playerUnitLength = len(unitconverger[unit])
           if unit == "wizard":
-            print(len(wizard))
+#           print(len(wizard))
             for i in range(len(wizard)):
               board[newrow][newcolumn+i]=wizard[i]
               board[row][column+i]="~"
+            
             playerunits[unit][coordinate_index]=[newrow,newcolumn]
             coordinate_index+=1
           if unit == "giant":
@@ -219,10 +237,9 @@ def move_characters(mode):
             coordinate_index+=1
       elif mode == "AI":
         if newrow > rows-3:
-          print("Twue")
+          pass
         else:
           if unit == "AIwizard":
-            print(len(AIwizard))
             for i in range(len(AIwizard)):
               board[newrow][newcolumn+i]=AIwizard[i]
               board[row][column+i]="~"
@@ -253,53 +270,73 @@ def move_characters(mode):
             AIunits[unit][coordinate_index]=[newrow,newcolumn]
             coordinate_index+=1
 
-
-
-
-  print(str(playerunits))
-while True:
-  #This print statement clears everything
-  print("\033c")
-  board[0]="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-  printboard()
-  print(len(c4u710nc0l0rch4n63))
+# An asynchronous(seperate) function
+async def passiveIncome(delay):
+  global income
+  #Says to wait then move on
+  await asyncio.sleep(delay)
+  income+=50
+def spawnUnit():
   wizardspawn="w"
   giantspawn="g"
   archerspawn="a"
   knightspawn="k"
   swordsmenspawn="s"
   # This is how to spawn a wizard.
-  spawn=input("To spawn a \033[91m wizard,\033[0m press w.:)Cost: $45 To spawn giant, press g:70 dollRS.Archer:40 and a, knight: 35 and k, for swordsmen,  20 and s")
-  if spawn==wizardspawn:
-    for i in range(len(wizard)):
-      board[rows-4][columns//2+i]=wizard[i]
-    playerunits["wizard"].append([rows-4,columns//2])
-  elif spawn==giantspawn:
-    for i in range(len(giant)):
-      board[rows-4][columns//2+i]=giant[i]
-    playerunits["giant"].append([rows-4,columns//2])
-  elif spawn==archerspawn:
-    for i in range(len(archer)):
-      board[rows-4][columns//2+i]=archer[i]
-    playerunits["archer"].append([rows-4,columns//2])  
-  elif spawn==knightspawn:
-    for i in range(len(knight)):
-      board[rows-4][columns//2+i]=knight[i]
-    playerunits["knight"].append([rows-4,columns//2])  
-  elif spawn==swordsmenspawn:
-    for i in range(len(swordsmen)):
-      board[rows-4][columns//2+i]=swordsmen[i]
-    playerunits["swordsmen"].append([rows-4,columns//2])
+  numplayerunits, numAIunits =  countUnits()
 
-  aKeys = AIunits.keys()
-  aKeys = list(aKeys)
-  aUnit = random.choice(aKeys)
-  for i in range(len(AIunitconverger[aUnit])):
-    board[4][columns//2+i]=AIunitconverger[aUnit][i]
-  AIunits[aUnit].append([4, columns//2])  
+  print(str(numAIunits))
+ # spawn=input("To spawn a wizard, press w.:)Cost: $45 To spawn giant, press g:70 dollRS.Archer:40 and a, knight: 35 and k, for swordsmen,  20 and s")
+  spawn = random.choice(["w", "g", "a", "k", "s"])
+
+
+  if numplayerunits <= maxunits:
+    if spawn==wizardspawn:
+      for i in range(len(wizard)):
+        board[rows-4][columns//2+i]=wizard[i]
+      playerunits["wizard"].append([rows-4,columns//2])
+    elif spawn==giantspawn:
+      for i in range(len(giant)):
+        board[rows-4][columns//2+i]=giant[i]
+      playerunits["giant"].append([rows-4,columns//2])
+    elif spawn==archerspawn:
+      for i in range(len(archer)):
+        board[rows-4][columns//2+i]=archer[i]
+      playerunits["archer"].append([rows-4,columns//2])  
+    elif spawn==knightspawn:
+      for i in range(len(knight)):
+        board[rows-4][columns//2+i]=knight[i]
+      playerunits["knight"].append([rows-4,columns//2])  
+    elif spawn==swordsmenspawn:
+      for i in range(len(swordsmen)):
+        board[rows-4][columns//2+i]=swordsmen[i]
+      playerunits["swordsmen"].append([rows-4,columns//2])
+  if numAIunits <= maxunits:
+    aKeys = AIunits.keys()
+    aKeys = list(aKeys)
+    aUnit = random.choice(aKeys)
+    for i in range(len(AIunitconverger[aUnit])):
+      board[4][columns//2+i]=AIunitconverger[aUnit][i]
+    AIunits[aUnit].append([4, columns//2])  
+async def mainGamePlayLoop():
+  #This print statement clears everything
+  print("\033c")
+  board[0]="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  printboard()
+
+  #await passiveIncome(5)
+  spawnUnit()
   move_characters("AI")
   move_characters("player")
-#Get coins if you defeat enemy
+  timeIncome = asyncio.create_task(passiveIncome(1))
+  await timeIncome
+#Shortest but most important part of the thing
+#^
+#| is the computer
+#The while loop is CPU
+while True:
+  asyncio.run(mainGamePlayLoop())
+#Get coins if you defeat enemy unit chlorofluorocarbon
 '''
 if AIgiant."defeat":
   income+=50
@@ -322,6 +359,11 @@ if knight."defeat":
 if AIswordsmen."defeat":
   AIincome+=10
 '''
+#Subtract money from your income if you spawn a unit
+
+#Passive income
+time.sleep(5)
+income+=50
 #Units next to each other will attack each other
 '''
 if "close":
