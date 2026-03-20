@@ -29,18 +29,18 @@ income=500
 AIincome=500
 #the units
 AIunitconverger={}
-giant="|--O--|"
-wizard="o-|"
+giant="|_[]-|"
+wizard="o!"
 c4u710nc0l0rch4n63 = "\033[0m"
 r3dch4n63c0l0r = "\033[91m"
-archer="|-o"
-knight="|-O-|"
-swordsmen="-O-|"
-AIgiant="|--A--|"
-AIwizard="A-|"
-AIarcher="|-A"
-AIknight="|-A-|"
-AIswordsmen="-A-|"
+archer="0|"
+knight="|O|"
+swordsmen="{O/"
+AIgiant="|_()-|"
+AIwizard="a!"
+AIarcher="A|"
+AIknight="|A|"
+AIswordsmen="{A/"
 MaxUnitLength = len(giant)
 unitconverger["giant"] = giant
 unitconverger["wizard"] = wizard
@@ -53,7 +53,7 @@ AIunitconverger["AIarcher"] = AIarcher
 AIunitconverger["AIknight"] = AIknight
 AIunitconverger["AIswordsmen"] = AIswordsmen
 #The projectiles
-laser="-!-"
+laser="!"
 arrow="|"
 #Making towers
 towerLtop= "______________"
@@ -134,7 +134,7 @@ printboard()
 #AI:Randomly spawn random AVAILABLE units at random times and - cost from your bank account 
 #different attack damage
 '''
-for unit in units:
+for unit in uniƒts:
   if unit."attackWithWeapon":
     Ahealth-=15
 '''
@@ -160,6 +160,7 @@ AIunits["AIgiant"] = []
 AIunits["AIarcher"] = []
 AIunits["AIknight"] = []
 AIunits["AIswordsmen"] = []
+#counting to see how many characters are on the board at a certain time.
 def countUnits():
   numPlayerUnits=0
   numAIUnits = 0
@@ -168,6 +169,7 @@ def countUnits():
   for unit in AIunits:
     numAIUnits += len(AIunits[unit])
   return numPlayerUnits, numAIUnits
+#Moving characters!
 def move_characters(mode):
   global playerunits, AIunits
   units = playerunits
@@ -182,11 +184,14 @@ def move_characters(mode):
       row=coordinate[0]
       column=coordinate[1]
       if mode == "player":
-        newrow=row-2
-        newcolumn=column+random.randint(-3,3 )
+        #newrow=row-1
+        newrow = row
+        newcolumn=column+random.randint(1,1 )
+        #newcolumn = column
       elif mode == "AI":
-        newrow = row+2
-        newcolumn = column+random.randint(-3, 3)
+        newrow = row+1
+        #newcolumn = column+random.randint(-3, 3)
+        newcolumn = column
       if newcolumn <= MaxUnitLength:
         newcolumn = MaxUnitLength
       if newcolumn >= columns-MaxUnitLength:
@@ -195,26 +200,33 @@ def move_characters(mode):
    #   print(str(newcolumn))
       if mode == "player":
         if newrow < 3:
+#TODO
 # stop before the castlemobobber
 #Things to change for AI units to move: AIunits instead of playerunits, Names of units, and direction of movement,
 #  and attacking the player's castle instead of the AI's castle, where they stop and spawn
 #        wizard."attack"
-        
+   
           pass
         else:
           playerUnitLength = len(unitconverger[unit])
-          if unit == "wizard":
-#           print(len(wizard))
-            for i in range(len(wizard)):
-              board[newrow][newcolumn+i]=wizard[i]
-              board[row][column+i]="~"
+          
+# #           print(len(wizard))
+#           for i in range(playerUnitLength):
+#             board[newrow][newcolumn+i]=unitconverger[unit]
+#             board[row][column+i]="~"
             
-            playerunits[unit][coordinate_index]=[newrow,newcolumn]
-            coordinate_index+=1
+          # playerunits[unit][coordinate_index]=[newrow,newcolumn]
+          # coordinate_index+=1
           if unit == "giant":
             for i in range(len(giant)):
               board[newrow][newcolumn+i]=giant[i]
-              board[row][column+i]="~"
+              # board[row][column+i]="~"
+              if newcolumn-column == 1 or newcolumn-column == -1:
+        #        for i in range(1):
+                  board[row][column+i] = "~"
+             # else:
+              #  for i in range(2):
+               #   board[row][column+i] = "~"
             playerunits[unit][coordinate_index]=[newrow,newcolumn]
             coordinate_index+=1
           if unit == "archer":
@@ -224,7 +236,7 @@ def move_characters(mode):
             playerunits[unit][coordinate_index]=[newrow,newcolumn]
             coordinate_index+=1
           if unit == "knight":
-            for i in range(len(knight)):
+            for i in range(playerUnitLength):
               board[newrow][newcolumn+i]=knight[i]
               board[row][column+i]="~"
             playerunits[unit][coordinate_index]=[newrow,newcolumn]
@@ -271,11 +283,13 @@ def move_characters(mode):
             coordinate_index+=1
 
 # An asynchronous(seperate) function
+#passive income.
 async def passiveIncome(delay):
   global income
   #Says to wait then move on
   await asyncio.sleep(delay)
   income+=50
+#setting the keys of spawning and spawning them
 def spawnUnit():
   wizardspawn="w"
   giantspawn="g"
@@ -321,11 +335,12 @@ def spawnUnit():
 async def mainGamePlayLoop():
   #This print statement clears everything
   print("\033c")
-  board[0]="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  board[0]="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   printboard()
 
   #await passiveIncome(5)
-  spawnUnit()
+  #spawnUnit()
+
   move_characters("AI")
   move_characters("player")
   timeIncome = asyncio.create_task(passiveIncome(1))
@@ -334,8 +349,11 @@ async def mainGamePlayLoop():
 #^
 #| is the computer
 #The while loop is CPU
-while True:
-  asyncio.run(mainGamePlayLoop())
+for i in range(1):
+  spawnUnit()
+  printboard()
+#while True:
+#  asyncio.run(mainGamePlayLoop())
 #Get coins if you defeat enemy unit chlorofluorocarbon
 '''
 if AIgiant."defeat":
@@ -397,10 +415,10 @@ AIwizard."range"=8"spaces"
                    .+*#%@%. .-#######**===**+*#%@@:.               ..::.-=:--:..                    
                    .-%##%@+.:#######**++++-+++#%@@=.              ..:..::::=+-:....                 
                     .*%#%@%-#######*+*##**##**@%%%%+.             ..:.-+=::-=--...                  
-                     :#%#%@####*****#**===+*#%%#%%###..            .:.=---:::::.:.                  
+                     :#%#%@####*****#**===+*#%%#%%###..            .:.=---:::::.:.               
                      =+##%%###***#%##+#+=-:=#%#*#%%###.             .::=--::::...                   
-                     .==###%#**%%###**#*+==+**%+#%%###-.             ..:.::...... .                 
-                     ...***%####*****+**+==+*+%*@%%%#+.               .:.......--:+.                
+                     .==###%#**%%###**#*+==+**%+#%%###-.             ..:.::...... .                  
+                     ...***%####*****+**+==+*+%*@%%%#+.               .:.......--:+.           
                       :****#+*****+*##+*#*=:=**%#%%%*..               ..:. .--=-**..                
                     .+**---+**#******+++**#*+==%#*%###+.             .:-:...:=*#*.                  
                   ..*##*-=-=+*#**++++-==+###+=*#%###%###*.         ..-:::::--+#*.                   
@@ -474,7 +492,7 @@ AIwizard."range"=8"spaces"
                         .............-%%%@@@@@@@%*+*:.....                                          
                         .....++-:...:#%#***#%%%*+-=#*.....  ...  ..                                 
                         ......-*@%+-*@%#*+=-:-+-=--*%-.... ........                                 
-                      ..........-*@@@@%%#+++==-+*+##%+.........:=:.                                 
+                      ..........-*@@@@%%#+++==-+*+##%+......r...:=:.                                 
                       ...+#%%@@@@@@@%@@@@@@@##%%@%##%#+..-+*#%%*-..                                 
                      ........::-+#%@@@%##*#%*+##*##+#%%%%@@*=:.....                                 
                      ......:+##@@@@@@@@@@@@%%#**@%####%@@#........                                  
